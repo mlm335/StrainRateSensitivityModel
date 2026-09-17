@@ -1,0 +1,135 @@
+% =====================================================================
+%  Supplemental Material
+% =====================================================================
+\documentclass[aps,prl,onecolumn,superscriptaddress,amsmath,amssymb,floatfix]{revtex4-2}
+\usepackage{graphicx,bm,xcolor,booktabs}
+\usepackage[colorlinks=true,citecolor=blue!50!black,linkcolor=blue!50!black]{hyperref}
+\newcommand{\gd}{\dot\gamma}
+\newcommand{\ts}{\tau^{\star}}
+\newcommand{\kT}{k_BT}
+\newcommand{\todo}[1]{\textcolor{red}{[#1]}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\begin{document}
+\title{Supplemental Material: Unified kinetic description of flow stress, strain-rate sensitivity, dynamic strain aging, and creep in body-centered-cubic metals}
+\author{Matthew Maron}
+\author{Giacomo Po}
+\author{Yang Li}
+\maketitle
+
+\section{S1. Components of the flow rule}
+
+\subsection{Glide}
+The mobile density moves with the kink-pair velocity
+\begin{equation}
+v_g=\frac{\ts b}{B_d}\exp\left\{-\frac{\Delta H_0}{2\kT}\max\left[\left(1-\left(\frac{\ts}{\tau_P}\right)^p\right)^q-\frac{T}{T_0},\,0\right]\right\}.
+\end{equation}
+For prismatic slip in Zr the drag coefficient interpolates smoothly between the kink drag $B_k$ and the free-flight drag $B_0$ as the barrier vanishes.
+
+\subsection{Dislocation density}
+The total density obeys
+\begin{equation}
+\frac{d\rho}{d\gamma}=k_1(\sqrt\rho+\Lambda_b)-k_2\rho-\frac{K D(T)}{\gd}\rho^2,
+\end{equation}
+with $k_2=k_{20}\exp(q_2/\kT)$ and $D=D_0\exp(-Q_D/\kT)$. The forest and mobile densities are $\rho_f=\beta\rho$ and $\rho_m=f_m\rho_f$. The flow stresses reported in the letter use the steady state, which is the root of
+\begin{equation}
+k_1(x+\Lambda_b)-k_2x^2-\frac{K D}{\gd}x^4=0,\qquad x=\sqrt\rho .
+\end{equation}
+The left-hand side is positive at $x=0$ and concave for $x>0$, so the positive root is unique. When the last term dominates, $x\propto(\gd/KD)^{1/3}$ and $\tau_a\propto(\gd/D)^{1/3}$. The boundary term is $\Lambda_b=\sum_ic_i/d_i$ over laths, blocks, prior-austenite grains and particles.
+
+\subsection{Solute aging}
+Arrested segments wait at forest junctions for $t_a=\rho_mb\lambda_f/\gd$ with $\lambda_f=\rho_f^{-1/2}$. The atmosphere concentration is
+\begin{equation}
+\frac{C}{C_0}=1+\sum_iC_i\left[1-e^{-x_i}\right],\qquad x_i=\left(t_a\nu_ie^{-Q_i/\kT}\right)^{\alpha_i},
+\end{equation}
+and the Taylor stress is multiplied by $s_c=\sqrt{C/C_0}$, so that $\tau_a=\alpha\mu b\,s_c(\sqrt{\rho_f}+\Lambda_b)$.
+
+\subsection{Particle pinning}
+Particles of areal density $\lambda_p^{-2}$ are met $n_p=\lambda_p^{-1}$ times per unit glide distance. The particle stress $\tau_p$ solves
+\begin{equation}
+\gd=\frac{\rho_mb}{n_p}\left(\nu_{\rm th}+\nu_{\rm cl}\right).
+\end{equation}
+Thermal detachment and glide-assisted local climb proceed at
+\begin{align}
+\nu_{\rm th}&=\nu_0\exp\left\{-\frac{F}{\kT}\left[1-\left(\frac{\tau_p}{\hat\tau}\right)^p\right]^q\right\},\\
+\nu_{\rm cl}&=\frac{v_c}{h_{\rm eff}},\qquad
+v_c=\frac{2\pi D_c}{b\ln(R/r_c)}\left[\exp\left(\frac{\tau_p\Omega}{\kT}\right)-1\right],\qquad
+h_{\rm eff}=h\max\left(1-\frac{\tau_p}{\hat\tau},10^{-3}\right),
+\end{align}
+with $\hat\tau=\hat\tau_0\,\mu(T)/\mu_0$. The reduction of the climb height describes a line pressed against the particle, as in local-climb models~\cite{S_BrownHam}, and produces threshold-type creep. Both rates are non-decreasing in $\tau_p$, so $\tau_p$ is unique.
+
+\subsection{Diffusional flow}
+Nabarro--Herring and Coble flow add the rate
+\begin{equation}
+\gd_{\rm diff}=42\,\frac{\Omega\tau}{\kT d^2}\left(D_v+\frac{\pi\delta}{d}D_b\right).
+\end{equation}
+
+\subsection{Uniqueness and constant-stress evaluation}
+With the state fixed by $(\gd,T)$, $v_g$ is strictly increasing in $\ts$ and $\tau_p$ is unique, so Eq.~(1) of the letter has exactly one solution for every imposed rate. The function $\tau(\gd)$ may decrease where aging gives $m<0$, but it is always single valued. For creep and for the maps, $\tau(\gd)$ is tabulated on $10^{-14}\le\gd\le10^{6}$~s$^{-1}$ at each temperature and inverted; where $\tau(\gd)$ is non-monotonic the lowest-rate branch that reaches the applied stress is taken, and $\gd_{\rm diff}$ is added.
+
+\section{S2. Derivation of the rate-sensitivity decomposition}
+Write $\tau=\ts+R$, where $\gd=G(\ts;\bm s)=\rho_mb\,v_g(\ts)$ is the intrinsic mobility and $R=\tau_a(\bm s)+\sum_g\tau_g$ collects all resistances. Along the solution,
+\begin{equation}
+d\ln\gd=A\,d\ts+\frac{\partial\ln G}{\partial\bm s}\cdot\frac{d\bm s}{d\ln\gd}\,d\ln\gd,\qquad A\equiv\frac{\partial\ln G}{\partial\ts},
+\end{equation}
+so that
+\begin{equation}
+\frac{d\tau}{d\ln\gd}=\frac1A+B,\qquad
+B\equiv\frac{dR}{d\ln\gd}-\frac1A\,\frac{\partial\ln G}{\partial\bm s}\cdot\frac{d\bm s}{d\ln\gd}.
+\end{equation}
+With $\Lambda=AB$ this gives
+\begin{equation}
+m=\frac1\tau\frac{d\tau}{d\ln\gd}=\frac{1+\Lambda}{\tau A},\qquad V^\star=\frac{\kT}{m\tau}=\frac{\kT A}{1+\Lambda}.
+\end{equation}
+The mobility sensitivity is
+\begin{equation}
+A=\frac1\ts+\frac{\Delta H_0pq}{2\kT\tau_P}\,x^{p-1}(1-x^p)^{q-1},\qquad x=\frac{\ts}{\tau_P}.
+\end{equation}
+The contributions to $B$ are as follows. For the particle stress, $d\tau_p/d\ln\gd=1/A_p$ with $A_p=\sum_k(\nu_k/\nu)A_k$ and
+\begin{align}
+A_{\rm th}&=\frac{Fpq}{\kT\hat\tau}\,y^{p-1}(1-y^p)^{q-1},\qquad y=\frac{\tau_p}{\hat\tau},\\
+A_{\rm cl}&=\frac{\Omega}{\kT}\frac{e^u}{e^u-1}+\frac{1}{\hat\tau-\tau_p},\qquad u=\frac{\tau_p\Omega}{\kT}.
+\end{align}
+Diffusion-controlled recovery lowers $\rho$ as $\gd$ decreases and therefore contributes $B>0$. Aging gives, with $t_a\propto\gd^{-1}$,
+\begin{equation}
+\frac{d\ln(C/C_0)}{d\ln\gd}=-\frac{\sum_iC_i\alpha_ix_ie^{-x_i}}{C/C_0}<0,
+\end{equation}
+so its contribution to $B$ is negative, and $m<0\iff\Lambda<-1$. In practice $A$ is evaluated analytically at the solved $\ts$, $d\tau/d\ln\gd$ is obtained by differentiating the full solution, and $B$ follows from its definition. The identity agrees with finite differences to better than $10^{-5}$ for all three materials, including points with $m<0$.
+
+\section{S3. Material inputs and calibration}
+Conventions: $\gd=\dot\epsilon/M_s$ and $\sigma=\tau/M_s$, with $M_s=0.333$ (W, Eurofer-97) and $0.45$ (Zr). The Zr and Eurofer-97 axial flow stresses are compared as $\sigma/3$. The global $m$ and $V^\star$ are least-squares fits over the experimental rate triplets.
+
+The parameters were determined in the order of the hierarchy. The kink-pair parameters follow from the low-temperature, high-rate data; the athermal and storage parameters from the plateau; the aging parameters from the position of the stress hump and its shift with rate; and the recovery and climb parameters from the high-temperature, low-rate data. For W only level I parameters are required in the tensile range. For Zr the level II parameters were fitted to the resolved shear stresses of Derep \emph{et al.} at two rates, with a weak weight on $m$. For Eurofer-97 all parameters were fitted jointly to the flow stresses of Vanaja \emph{et al.} (three rates, 300--873~K) and to the minimum creep rates of Refs.~\cite{S_Fern,S_Yu}. The objective was the sum of squared relative stress errors plus $0.01$ times the sum of squared $\log_{10}$ rate errors, minimized by bounded Powell iterations. The activation energy for particle climb was set equal to that for forest recovery. The resulting mean flow-stress error is 4.1\%, and the creep rms error is 0.55 decades, with 52 of 54 rates within one decade. The diffusional-flow inputs were not fitted: $d=21~\mu$m (prior-austenite grain size), $D_v$ equal to the recovery diffusivity, and $D_b=2\times10^{-4}\exp(-1.8~\mathrm{eV}/\kT)$~m$^2$/s with $\delta=2b$. For W and Zr the recovery and diffusional terms used in the maps are based on self-diffusion data and are predictions.
+
+\begin{table}[h]
+\caption{Parameters. Values marked $^\dagger$ are lumped with geometry ($h$, $\ln R/r_c$) and are not bare physical constants.}
+\begin{ruledtabular}
+\begin{tabular}{llll}
+ & W (I) & Zr (II) & Eurofer-97 (III)\\
+\hline
+$b$ (nm), $\mu_0$ (GPa), $T_m$ (K) & 0.2722, 161, 3695 & 0.3233, 33, 2128 & 0.2737, 80 [$\mu(T)$], 1811\\
+$\Delta H_0$ (eV), $\tau_P$ (GPa), $p$, $q$ & 2.4, 0.8, 0.83, 1.69 & 3.75, 0.30, 0.86, 1.69 & 1.49, 0.68, 0.65, 1.7\\
+$T_0/T_m$ & 0.9 & 0.7 & 0.9\\
+$\alpha$ & 0.28 & 0.36 & 0.296\\
+$k_1$ (m$^{-1}$), $k_{20}$, $q_2$ (eV) & $5.5\times10^9$, 500, $-0.011$ & $5.5\times10^9$, 500, $-0.005$ & $7.8\times10^{10}$, 6750, $-0.007$\\
+$\beta$, $f_m$ & 1, 1 & 1, 1 & 0.1, 1\\
+$\Lambda_b$ (m$^{-1}$) & -- & -- & $2.74\times10^6$\\
+aging $C$, $Q$ (eV), $\alpha$ & -- & 0.30, 1.80, 2/3 (O) & 1.21, 0.97, 1/3 (C, N)\\
+recovery $K$, $Q_D$ (eV) & $10^9$, 6.0 & $10^9$, 3.2 & $6.6\times10^{6}$, 2.92\\
+particles $\hat\tau_0$ (MPa), $F$ (eV) & -- & -- & 188, 3.66\\
+particle climb $D_{c,0}^\dagger$ (m$^2$/s), $Q$ (eV) & -- & -- & $5.4\times10^{-3}$, 2.92\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\section{S4. Data sources}
+Tungsten: resolved shear stress, $m$ and $V^\star$ from micropillar compression, nanoindentation, indentation literature, IGW, W plate and arc-melted W \todo{references}. Zirconium: resolved shear stress and $V^\star$ from Derep \emph{et al.} \todo{ref}; $m$ from micro-cantilever tests on prismatic and basal slip \todo{Gong ref} and from Lee (1972, 2007) \todo{refs}. Eurofer-97 tensile data: Vanaja \emph{et al.}, J. Nucl. Mater. \textbf{424} (2012) \todo{pages}. Eurofer-97 creep: minimum creep rates digitized from Fig.~1 of Fern\'andez \emph{et al.}~\cite{S_Fern} (plate and bar, air and vacuum, 450--650~$^\circ$C, 53 points), together with the 550~$^\circ$C, 300~MPa steady-state rate of Yu \emph{et al.}~\cite{S_Yu}. The digitization uncertainty is about $\pm2\%$ in stress and $\pm0.05$ decade in rate. The digitized values are provided in \texttt{eurofer97\_creep\_data\_digitized.csv}.
+
+\begin{thebibliography}{9}
+\bibitem{S_BrownHam} L. M. Brown and R. K. Ham, in \emph{Strengthening Methods in Crystals}, edited by A. Kelly and R. B. Nicholson (Elsevier, Amsterdam, 1971), p.~9.
+\bibitem{S_Fern} P. Fern\'andez, A. M. Lancha, J. Lape\~na, R. Lindau, M. Rieth, and M. Schirra, Fusion Eng. Des. \textbf{75--79}, 1003 (2005).
+\bibitem{S_Yu} G. Yu, N. Nita, and N. Baluc, Fusion Eng. Des. \textbf{75--79}, 1037 (2005).
+\end{thebibliography}
+\end{document}

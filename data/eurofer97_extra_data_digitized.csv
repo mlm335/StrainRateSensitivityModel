@@ -1,0 +1,20 @@
+# Digitized from Abaalkhail et al. (Fusion Eng. Des., preprint 2026), Figs. 5a and 6. Uncertainty ~ +/-3 MPa, +/-0.001 in m, +/-3 b^3.
+# V* normalized with b = 0.2485 nm (a = 0.287 nm).
+dataset,source,T_K,sigma_MPa,m,Vstar_b3,note
+flow,Materna-Morris et al. J. Nucl. Mater. 442 (2013) S62,300,635,,,unirradiated; strain rate not stated
+flow,Materna-Morris et al. J. Nucl. Mater. 442 (2013) S62,573,541,,,unirradiated; strain rate not stated
+flow,Materna-Morris et al. J. Nucl. Mater. 442 (2013) S62,723,467,,,unirradiated; strain rate not stated
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,300,,0.0296,12.5,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,373,,0.0154,33.1,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,473,,0.0057,129.7,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,523,,0.0000,,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,573,,0.0062,157.5,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,623,,0.0103,101.4,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,673,,0.0045,277.8,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,723,,0.0210,65.3,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,773,,0.0409,39.2,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,823,,0.0623,29.2,
+srs,Vanaja et al. J. Nucl. Mater. 424 (2012) 116,873,,0.0960,27.0,
+srs,Shah et al. Metall. Mater. Trans. A 49 (2018) 2644,773,,0.0179,263,IN-RAFM steel (not Eurofer-97)
+srs,Shah et al. Metall. Mater. Trans. A 49 (2018) 2644,823,,0.0391,155,IN-RAFM steel (not Eurofer-97)
+srs,Shah et al. Metall. Mater. Trans. A 49 (2018) 2644,873,,0.0600,135,IN-RAFM steel (not Eurofer-97)

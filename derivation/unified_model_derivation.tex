@@ -1,0 +1,567 @@
+% =====================================================================
+%  Unified kinetic flow rule for BCC metals: full derivation
+%  Compile: pdflatex unified_model_derivation (twice)
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,bm,booktabs,array}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black]{hyperref}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{keybox}[1][]{enhanced,breakable,colback=blue!3,colframe=blue!40!black,
+  boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,title={#1},fonttitle=\bfseries\small}
+\newtcolorbox{matbox}[1][]{enhanced,breakable,colback=gray!4,colframe=gray!50!black,
+  boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,title={#1},fonttitle=\bfseries}
+
+\newcommand{\gd}{\dot\gamma}
+\newcommand{\ts}{\tau^{\star}}
+\newcommand{\kT}{k_BT}
+\newcommand{\dd}{\mathrm{d}}
+\numberwithin{equation}{section}
+\setlength{\parskip}{4pt}
+
+\title{A unified kinetic flow rule for body-centered-cubic metals:\\ derivation from the mean dislocation velocity to complete constitutive equations for W, Zr and Eurofer-97}
+\author{Matthew Maron, Giacomo Po, Yang Li}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% =====================================================================
+\section{Starting point: the mean velocity of a dislocation segment}
+% =====================================================================
+Plastic shear is carried by mobile dislocations of density $\rho_m$ moving with a mean velocity $\bar v$ (Orowan~\cite{Orowan1940}):
+\begin{equation}
+\gd=\rho_m\,b\,\bar v .
+\label{eq:orowan}
+\end{equation}
+The whole model is contained in how $\bar v$ is written. A segment does not move at constant speed. Over one characteristic glide distance $\lambda$ it spends a time $t_r$ \emph{travelling} through the lattice and a time $t_w$ \emph{waiting} at obstacles that it cannot pass immediately. The mean velocity is distance over total time,
+\begin{equation}
+\boxed{\;\bar v=\frac{\lambda}{t_r+t_w}\;}
+\label{eq:vbar}
+\end{equation}
+and therefore
+\begin{equation}
+\frac{1}{\gd}=\frac{t_r+t_w}{\rho_m b\lambda}.
+\label{eq:inv_rate}
+\end{equation}
+
+\subsection{Travel time}
+Between obstacles the segment glides with the lattice velocity $v_g(\ts)$, which depends on the effective stress $\ts$ acting on the lattice-friction process. The travel time over $\lambda$ is $t_r=\lambda/v_g$, so the travel term in Eq.~\eqref{eq:inv_rate} is
+\begin{equation}
+\frac{t_r}{\rho_m b\lambda}=\frac{1}{\rho_m b\,v_g(\ts)}\equiv\frac{1}{\gd_g}.
+\end{equation}
+$\gd_g$ is the rate the material would have if travel were the only process.
+
+\subsection{Waiting time}
+Let obstacle populations $j$ have areal densities $\lambda_j^{-2}$ on the slip plane. A line that sweeps a strip of unit length meets $n_j$ obstacles of type $j$, with
+\begin{equation}
+n_j=\lambda_j^{-2}\,\lambda,\qquad \lambda^{-2}=\sum_j\lambda_j^{-2},
+\end{equation}
+where $\lambda$ is the combined spacing. If an obstacle of type $j$ is passed at a rate $\nu_j$ (s$^{-1}$), the mean time spent at it is $1/\nu_j$. The waiting time per unit glide distance is $\sum_j n_j/\nu_j$, so
+\begin{equation}
+\frac{t_w}{\rho_m b\lambda}=\frac{1}{\rho_m b}\sum_j\frac{n_j}{\nu_j}\equiv\frac{1}{\gd_w}.
+\end{equation}
+
+\subsection{Several ways past one obstacle}
+An obstacle may be passed in more than one way: thermally activated cutting or detachment, climb, cross slip, and so on. These routes are \emph{alternatives}; whichever succeeds first releases the segment. The release rate is the sum of the route rates,
+\begin{equation}
+\nu_j=\sum_k\nu_{jk}(\ts).
+\label{eq:parallel}
+\end{equation}
+
+\subsection{The general flow rule}
+Combining the pieces gives
+\begin{equation}
+\boxed{\;\frac{1}{\gd}=\frac{1}{\rho_m b\,v_g(\ts)}+\frac{1}{\rho_m b}\sum_j\frac{n_j}{\sum_k\nu_{jk}(\ts)}\;}
+\label{eq:general}
+\end{equation}
+Three composition rules are contained in this expression.
+\begin{description}
+\item[S (series).] Processes a segment goes through one after another add their \emph{times}: $\gd^{-1}=\sum_i\gd_i^{-1}$. The slowest step controls, but every step contributes.
+\item[P (parallel).] Alternative routes past the same obstacle add their \emph{rates}, Eq.~\eqref{eq:parallel}. The fastest route controls.
+\item[L (linear superposition).] Resistances that act on the line \emph{at the same time} add their \emph{stresses}. This is the case for long-range internal stresses (the Taylor forest stress, boundary stresses) and for sparse strong obstacles that pin a line which is simultaneously held back by lattice friction~\cite{KocksArgonAshby,Seeger}:
+\begin{equation}
+\tau=\tau_a+\ts+\sum_g\tau_g .
+\label{eq:superpose}
+\end{equation}
+\end{description}
+
+\subsection{Which obstacles enter where}
+The choice between rules S and L follows from the obstacle strength and spacing.
+\begin{itemize}
+\item \emph{Forest junctions} in BCC metals are strong and long range. They are treated as an athermal back stress $\tau_a$ (rule L), not as waiting sites. Their rate dependence enters through the forest \emph{density}, which evolves with rate and temperature (Sec.~\ref{sec:state}).
+\item \emph{Carbides and carbonitrides} (M$_{23}$C$_6$, MX) in Eurofer-97 are sparse and much stronger than the lattice friction. The line bows between them while the lattice friction acts along its whole length, so their stress is superposed (rule L). Each such group, however, has its own \emph{time} balance. A segment pinned at particles of spacing $\lambda_p$ is released at a rate $\nu_p=\sum_k\nu_{pk}(\tau_p)$ (rule P), and between releases it advances by $\lambda_p$. Applying Eq.~\eqref{eq:general} to this group alone gives
+\begin{equation}
+\gd=\frac{\rho_m b}{n_p/\nu_p}=\rho_m b\,\lambda_p\,\nu_p(\tau_p),\qquad n_p=\lambda_p^{-1},
+\label{eq:group}
+\end{equation}
+which fixes the particle stress $\tau_p$ for the imposed rate.
+\item \emph{Weak, dense, thermally penetrable obstacles} (e.g.\ small clusters or irradiation loops) would enter the waiting sum of Eq.~\eqref{eq:general} (rule S). None of the three materials treated here needs such a population, so for them the waiting sum over intragranular obstacles is zero and Eq.~\eqref{eq:general} reduces to
+\begin{equation}
+\gd=\rho_m b\,v_g(\ts).
+\label{eq:travel_only}
+\end{equation}
+\end{itemize}
+
+Diffusional (Nabarro--Herring and Coble) flow transports matter rather than dislocations. It is an independent carrier, so its rate adds to the dislocation rate (Sec.~\ref{sec:diff}).
+
+% =====================================================================
+\section{Travel: kink-pair glide}
+% =====================================================================
+Screw dislocations in BCC metals, and on prismatic planes in Zr, move by the thermally activated nucleation of kink pairs followed by lateral kink migration~\cite{HirthLothe,DornRajnak1964}. We use the mobility law of Po \emph{et al.}~\cite{Po2016}:
+\begin{equation}
+\boxed{\;v_g(\ts,T)=\frac{\ts b}{B_d}\exp\left\{-\frac{\Delta H_0}{2\kT}\max\!\left[\left(1-\left(\frac{\ts}{\tau_P}\right)^p\right)^q-\frac{T}{T_0},\;0\right]\right\}\;}
+\label{eq:vg}
+\end{equation}
+The terms are as follows.
+\begin{itemize}
+\item $\ts b/B_d$ is the viscous drag velocity, with drag coefficient $B_d$.
+\item $\Delta H_0[1-(\ts/\tau_P)^p]^q$ is the kink-pair enthalpy in the Kocks--Argon--Ashby form~\cite{KocksArgonAshby}; it vanishes at the Peierls stress $\tau_P$.
+\item The factor $1/2$ applies to long screw segments, where the rate is set by the square root of the nucleation rate times the kink migration rate.
+\item $-T/T_0$ lowers the barrier linearly with temperature and acts as an entropic correction. The $\max[\cdot,0]$ ensures that above the temperature where the barrier vanishes, glide becomes drag controlled.
+\end{itemize}
+For prismatic slip in Zr the drag coefficient switches smoothly from the kink value $B_k$ to the free-flight value $B_0$ as the barrier $\Delta g=\max[\ldots]$ disappears:
+\begin{equation}
+B_d=B_k(1-s)+B_0s,\qquad s=\left[1+\exp\left(-\frac{0.05-\Delta g}{0.05}\right)\right]^{-1}.
+\label{eq:drag_switch}
+\end{equation}
+
+The \textbf{intrinsic mobility sensitivity}, used below, is
+\begin{equation}
+A\equiv\frac{\partial\ln v_g}{\partial\ts}=\frac1\ts+\frac{\Delta H_0\,pq}{2\kT\,\tau_P}\,x^{p-1}(1-x^p)^{q-1},\qquad x=\frac{\ts}{\tau_P},
+\label{eq:A}
+\end{equation}
+where the second term applies while the barrier is non-zero.
+
+% =====================================================================
+\section{Waiting: routes past sparse strong obstacles}
+\label{sec:routes}
+% =====================================================================
+\subsection{Thermally activated detachment or cutting}
+\begin{equation}
+\nu_{\rm th}=\nu_0\exp\left\{-\frac{F}{\kT}\left[1-\left(\frac{\tau_p}{\hat\tau}\right)^p\right]^q\right\},
+\label{eq:nuth}
+\end{equation}
+where $F$ is the activation free energy at zero stress and $\hat\tau$ is the athermal (Orowan) strength~\cite{KocksArgonAshby,RoslerArzt}. At $\tau_p\ge\hat\tau$ the barrier vanishes and $\nu_{\rm th}=\nu_0$. Its sensitivity is
+\begin{equation}
+A_{\rm th}=\frac{\partial\ln\nu_{\rm th}}{\partial\tau_p}=\frac{F\,pq}{\kT\,\hat\tau}\,y^{p-1}(1-y^p)^{q-1},\qquad y=\frac{\tau_p}{\hat\tau}.
+\end{equation}
+
+\subsection{Glide-assisted local climb}
+A segment held at a particle can escape by climbing over it. The climb velocity of an edge segment under a climb stress $\tau_p$ follows from the vacancy flux to a cylindrical core of radius $r_c$ from a distance $R$~\cite{HirthLothe}:
+\begin{equation}
+v_c=\frac{2\pi D_c}{b\ln(R/r_c)}\left[\exp\left(\frac{\tau_p\Omega}{\kT}\right)-1\right].
+\label{eq:vc}
+\end{equation}
+The segment must climb a height $h_{\rm eff}$. In local climb the line is pressed against the particle, and the part that still has to climb shrinks as the applied stress approaches the particle strength~\cite{BrownHam,ArztAshby1982}. We write
+\begin{equation}
+h_{\rm eff}=h\,\max\!\left(1-\frac{\tau_p}{\hat\tau},\,10^{-3}\right),
+\end{equation}
+so that
+\begin{equation}
+\nu_{\rm cl}=\frac{v_c}{h_{\rm eff}}=\frac{2\pi D_c}{b\,h\ln(R/r_c)}\,\frac{e^{\tau_p\Omega/\kT}-1}{1-\tau_p/\hat\tau},
+\label{eq:nucl}
+\end{equation}
+with sensitivity
+\begin{equation}
+A_{\rm cl}=\frac{\partial\ln\nu_{\rm cl}}{\partial\tau_p}=\frac{\Omega}{\kT}\,\frac{e^u}{e^u-1}+\frac{1}{\hat\tau-\tau_p},\qquad u=\frac{\tau_p\Omega}{\kT}.
+\end{equation}
+
+\subsection{Combined release rate and the particle stress}
+By rule P, $\nu_p=\nu_{\rm th}+\nu_{\rm cl}$, and Eq.~\eqref{eq:group} gives the implicit equation for $\tau_p$:
+\begin{equation}
+\boxed{\;\gd=\rho_m b\,\lambda_p\left[\nu_{\rm th}(\tau_p)+\nu_{\rm cl}(\tau_p)\right]\;}
+\label{eq:taup}
+\end{equation}
+Both rates increase with $\tau_p$, so the solution is unique. The sensitivity of the group is the rate-weighted mean
+\begin{equation}
+A_p=\frac{\nu_{\rm th}}{\nu_p}A_{\rm th}+\frac{\nu_{\rm cl}}{\nu_p}A_{\rm cl},\qquad \frac{\dd\tau_p}{\dd\ln\gd}\bigg|_{\rho_m}=\frac{1}{A_p}.
+\end{equation}
+
+\paragraph{Threshold creep.} When climb controls and $u\ll1$, $\nu_{\rm cl}\propto\tau_p/(1-\tau_p/\hat\tau)$, and the local stress exponent of the particle process is
+\begin{equation}
+n_p\equiv\frac{\partial\ln\nu_{\rm cl}}{\partial\ln\tau_p}=\tau_pA_{\rm cl}\simeq\frac{1}{1-\tau_p/\hat\tau}.
+\end{equation}
+This exponent diverges as $\tau_p\to\hat\tau$, which is the origin of the large and temperature-dependent Norton exponents of particle-strengthened steels. As $D_c(T)$ increases, a given rate is reached at a smaller $\tau_p/\hat\tau$, and $n_p$ falls.
+
+% =====================================================================
+\section{State: dislocation density and athermal stress}
+\label{sec:state}
+% =====================================================================
+\subsection{Taylor stress}
+The long-range athermal stress is~\cite{Taylor1934,KocksMecking2003}
+\begin{equation}
+\boxed{\;\tau_a=\alpha\,\mu(T)\,b\,s_c\left(\sqrt{\rho_f}+\Lambda_b\right)\;}
+\label{eq:taua}
+\end{equation}
+where $\rho_f=\beta\rho$ is the forest part of the total density $\rho$, $\Lambda_b$ is the inverse spacing of boundaries (laths, blocks, grains, particles), and $s_c$ is the solute strengthening factor of Sec.~\ref{sec:aging} ($s_c=1$ without aging). The mobile density is $\rho_m=f_m\rho_f$.
+
+\subsection{Evolution of the dislocation density}
+Three processes change $\rho$ during deformation.
+
+\emph{Storage.} A mobile dislocation that glides a distance $\dd x$ is stored after a mean free path $L$, so $\dd\rho=\dd\gamma/(bL)$. With $1/L\propto\sqrt\rho$ (forest) plus $1/L\propto1/d_i$ (boundaries) this gives $k_1(\sqrt\rho+\Lambda_b)$~\cite{Kocks1976,MeckingKocks,EstrinMecking1984,Estrin1996}.
+
+\emph{Dynamic recovery.} Moving dislocations annihilate stored ones they pass within a capture distance, mainly by cross slip. The number annihilated per unit strain is proportional to $\rho$, giving $-k_2\rho$ with $k_2=k_{20}\exp(q_2/\kT)$~\cite{Kocks1976,MeckingKocks}. This process acts per unit \emph{strain}.
+
+\emph{Climb-controlled (static) recovery.} Dipoles and network links annihilate by climb whether or not the crystal deforms. The classical rate per unit \emph{time} is second order in density~\cite{KMR1949,SandstromLagneborg1975,Sandstrom1977,Nes1995}:
+\begin{equation}
+\left.\frac{\dd\rho}{\dd t}\right|_{\rm climb}=-K\,D(T)\,\rho^2,\qquad D=D_0e^{-Q_D/\kT}.
+\end{equation}
+Dividing by $\gd=\dd\gamma/\dd t$ converts it to a per-strain rate.
+
+Together,
+\begin{equation}
+\boxed{\;\frac{\dd\rho}{\dd\gamma}=k_1\left(\sqrt\rho+\Lambda_b\right)-k_2\rho-\frac{K\,D(T)}{\gd}\,\rho^2\;}
+\label{eq:km}
+\end{equation}
+or, equivalently, in time form,
+\begin{equation}
+\frac{\dd\rho}{\dd t}=\gd\left[k_1\left(\sqrt\rho+\Lambda_b\right)-k_2\rho\right]-K\,D(T)\,\rho^2 .
+\label{eq:km_time}
+\end{equation}
+The same three-term structure is used by Sandstr\"om and co-workers for stress--strain curves and creep of copper~\cite{SandstromLagneborg1975,SandstromHallgren2012}.
+
+\subsection{Steady state}
+The steady-state density ($\dd\rho/\dd\gamma=0$) is the positive root of
+\begin{equation}
+\boxed{\;f(x)\equiv k_1(x+\Lambda_b)-k_2x^2-c_3x^4=0,\qquad x=\sqrt\rho,\qquad c_3=\frac{K\,D(T)}{\gd}\;}
+\label{eq:ss}
+\end{equation}
+Since $f(0)=k_1\Lambda_b\ge0$, $f''(x)=-2k_2-12c_3x^2<0$ and $f\to-\infty$, there is exactly one positive root. It has two useful limits.
+
+\emph{Low temperature} ($c_3\to0$, $\Lambda_b=0$): $x=k_1/k_2$, so
+\begin{equation}
+\tau_a=\alpha\mu b\sqrt{\beta}\,\frac{k_1}{k_2(T)},
+\end{equation}
+which is independent of rate.
+
+\emph{Recovery controlled} ($c_3x^4\gg k_2x^2$, $x\gg\Lambda_b$): $k_1x\simeq c_3x^4$, so
+\begin{equation}
+\sqrt\rho=\left(\frac{k_1\gd}{K D}\right)^{1/3}\quad\Longrightarrow\quad
+\tau_a=\alpha\mu b\sqrt\beta\left(\frac{k_1\gd}{K D}\right)^{1/3}\quad\Longrightarrow\quad
+\gd=\frac{K D}{k_1}\left(\frac{\tau_a}{\alpha\mu b\sqrt\beta}\right)^3 .
+\label{eq:natural}
+\end{equation}
+This is the natural creep law~\cite{Poirier1985,Blum2002}: stress exponent $n=3$ and activation energy $Q_D$.
+
+% =====================================================================
+\section{State: solute aging}
+\label{sec:aging}
+% =====================================================================
+\subsection{Waiting time}
+A mobile segment is arrested at forest junctions of spacing $\lambda_f=\rho_f^{-1/2}$. Its mean velocity is $\bar v=\gd/(\rho_m b)$, so the time it waits between jumps is
+\begin{equation}
+t_a=\frac{\lambda_f}{\bar v}=\frac{\rho_m\,b\,\lambda_f}{\gd}
+\label{eq:ta}
+\end{equation}
+(cf.\ the waiting time $\Omega/\dot\epsilon$ of McCormick~\cite{McCormick1988} and Kubin--Estrin~\cite{KubinEstrin1990}). It is fixed by the imposed rate and the state and does not depend on the stress.
+
+\subsection{Atmosphere formation}
+During $t_a$, solute species $i$ diffuse to the arrested segment. Cottrell--Bilby kinetics give growth as $t^{2/3}$~\cite{CottrellBilby}, and saturation follows Louat~\cite{Louat1981}:
+\begin{equation}
+\boxed{\;\frac{C}{C_0}=1+\sum_iC_i\left[1-e^{-x_i}\right],\qquad x_i=\left(t_a\,\nu_i\,e^{-Q_i/\kT}\right)^{\alpha_i}\;}
+\label{eq:aging}
+\end{equation}
+Here $C_i$ is the saturation enrichment, $\nu_i$ an attempt frequency, $Q_i$ the effective migration energy, and $\alpha_i$ the kinetic exponent ($2/3$ for Cottrell--Bilby, smaller when saturation is gradual).
+
+\subsection{Strengthening}
+Atmospheres increase the junction strength. We use~\cite{Cheng2001}
+\begin{equation}
+s_c=\sqrt{C/C_0},
+\end{equation}
+which multiplies the Taylor stress in Eq.~\eqref{eq:taua}.
+
+\subsection{Rate dependence}
+Because $t_a\propto\gd^{-1}$ at fixed state,
+\begin{equation}
+\frac{\partial\ln(C/C_0)}{\partial\ln\gd}=-\frac{\sum_iC_i\,\alpha_i\,x_ie^{-x_i}}{C/C_0}<0 .
+\label{eq:aging_slope}
+\end{equation}
+Faster straining leaves less time to age, so aging makes the resistance \emph{decrease} with rate. The effect is largest when $x_i\approx1$, i.e.\ when $t_a\approx e^{Q_i/\kT}/\nu_i$; this condition places the DSA window in the $(T,\gd)$ plane.
+
+% =====================================================================
+\section{Diffusional flow}
+\label{sec:diff}
+% =====================================================================
+Nabarro--Herring and Coble creep~\cite{Nabarro1948,Herring1950,Coble1963} in the form of Frost and Ashby~\cite{FrostAshby}:
+\begin{equation}
+\boxed{\;\gd_{\rm diff}=42\,\frac{\Omega\,\tau}{\kT\,d^2}\left(D_v+\frac{\pi\delta}{d}D_b\right)\;}
+\label{eq:diff}
+\end{equation}
+Here $d$ is the grain size, $\delta=2b$ the boundary width, and $D_v$ and $D_b$ the lattice and boundary diffusivities. The stress exponent is $n=1$. The total rate is
+\begin{equation}
+\gd_{\rm tot}=\gd_{\rm disl}(\tau)+\gd_{\rm diff}(\tau).
+\end{equation}
+
+% =====================================================================
+\section{The assembled flow rule}
+% =====================================================================
+\begin{keybox}[Unified flow rule (all ingredients)]
+For an imposed shear rate $\gd$ and temperature $T$:
+\begin{align}
+&\text{state:} && x=\sqrt\rho:\ k_1(x+\Lambda_b)-k_2x^2-\frac{K D}{\gd}x^4=0,\quad \rho_f=\beta\rho,\quad \rho_m=f_m\rho_f,\notag\\
+&&& \frac{C}{C_0}=1+\sum_iC_i\left[1-e^{-(t_a\nu_ie^{-Q_i/\kT})^{\alpha_i}}\right],\quad t_a=\frac{\rho_mb}{\sqrt{\rho_f}\,\gd},\notag\\
+&\text{athermal:} && \tau_a=\alpha\mu b\sqrt{C/C_0}\left(\sqrt{\rho_f}+\Lambda_b\right),\notag\\
+&\text{lattice:} && \gd=\rho_mb\,\frac{\ts b}{B_d}\exp\left\{-\frac{\Delta H_0}{2\kT}\max\!\left[\left(1-(\ts/\tau_P)^p\right)^q-\frac{T}{T_0},0\right]\right\}\ \Rightarrow\ \ts,\notag\\
+&\text{particles:} && \gd=\rho_mb\lambda_p\left[\nu_{\rm th}(\tau_p)+\nu_{\rm cl}(\tau_p)\right]\ \Rightarrow\ \tau_p,\notag\\
+&\text{stress:} && \boxed{\tau=\tau_a+\ts+\tau_p},\notag\\
+&\text{at constant stress:} && \gd_{\rm tot}=\gd_{\rm disl}(\tau)+\gd_{\rm diff}(\tau).\notag
+\end{align}
+\end{keybox}
+
+\subsection{Uniqueness}
+Every state variable, $\rho$, $C/C_0$ and $\rho_m$, is determined by $(\gd,T)$ and not by $\tau$. For a given rate, therefore:
+\begin{itemize}
+\item the right-hand side of the lattice equation is strictly increasing in $\ts$, so there is one $\ts$;
+\item the right-hand side of the particle equation is non-decreasing in $\tau_p$, so there is one $\tau_p$;
+\item $\tau_a$ is a number.
+\end{itemize}
+The stress $\tau(\gd)$ is therefore single valued. It need not be monotonic in $\gd$: where aging dominates it decreases with rate ($m<0$), but it never has more than one value for a given rate.
+
+\subsection{Why the state is not written as a function of the stress}
+One could instead let the athermal stress depend on the stress, for example $\tau_a=\tau_{a0}(T)[1-s_d\,\gd_{\rm diff}(\tau)/\gd-\ldots]$, which makes the equation for $\tau$ implicit and coupled. That closure is mathematically admissible, since $\tau-\tau_a(\tau)$ still increases with $\tau$, but it has three drawbacks.
+\begin{enumerate}
+\item The softening coefficients are phenomenological; nothing links the share of strain carried by another mechanism to the strength of the forest.
+\item A process that already carries strain in parallel would also soften the glide resistance, so its effect is counted twice.
+\item The derivative $\dd\tau/\dd\ln\gd$ acquires a feedback factor $1/(1-\partial\tau_a/\partial\tau)$ that mixes mobility and resistance, so the decomposition of Sec.~\ref{sec:srs} is no longer clean.
+\end{enumerate}
+In the present rule the rate dependence of $\tau_a$ is still there, $\tau_a=\tau_a(\gd,T)$, but it comes from the kinetics of $\rho$ and $C/C_0$. A stress dependence could be added in a physically based way, for instance through the climb mobility $\propto\exp(\sigma b^3/\kT)$ used by Sandstr\"om~\cite{SandstromHallgren2012}. Uniqueness would then have to be checked explicitly.
+
+% =====================================================================
+\section{Strain-rate sensitivity: exact decomposition}
+\label{sec:srs}
+% =====================================================================
+\subsection{Derivation}
+Write $\tau=\ts+R$, where $R=\tau_a+\tau_p$ collects every resistance, and $\gd=G(\ts;\bm s)=\rho_mb\,v_g(\ts)$. Differentiating along the solution,
+\begin{equation}
+\dd\ln\gd=A\,\dd\ts+\frac{\partial\ln G}{\partial\bm s}\cdot\dd\bm s,\qquad A=\frac{\partial\ln G}{\partial\ts}=\frac{\partial\ln v_g}{\partial\ts}.
+\end{equation}
+Solving for $\dd\ts$ and adding $\dd R$:
+\begin{equation}
+\frac{\dd\tau}{\dd\ln\gd}=\frac1A+\underbrace{\frac{\dd R}{\dd\ln\gd}-\frac1A\frac{\partial\ln G}{\partial\bm s}\cdot\frac{\dd\bm s}{\dd\ln\gd}}_{\displaystyle B}.
+\end{equation}
+Define $\Lambda\equiv AB$. Then
+\begin{equation}
+\boxed{\;m=\frac{1}{\tau}\frac{\dd\tau}{\dd\ln\gd}=\frac{1+\Lambda}{\tau A},\qquad
+V^\star=\frac{\kT}{m\tau}=\frac{\kT\,A}{1+\Lambda}\;}
+\label{eq:srs}
+\end{equation}
+In practice $A$ is evaluated from Eq.~\eqref{eq:A} at the solved $\ts$, $\dd\tau/\dd\ln\gd$ is obtained by differentiating the full solution, and $B=\dd\tau/\dd\ln\gd-1/A$.
+
+\subsection{Contributions to $B$}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Source & Mechanism & Sign of $B$\\
+\midrule
+Climb recovery & $\rho$ falls as $\gd$ falls, Eq.~\eqref{eq:ss} & $+$\\
+Particle climb and detachment & $\dd\tau_p/\dd\ln\gd=1/A_p$ & $+$\\
+Solute aging & $C/C_0$ falls as $\gd$ rises, Eq.~\eqref{eq:aging_slope} & $-$\\
+Dynamic recovery, storage & rate independent & $0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Limits and consequences}
+\begin{itemize}
+\item \emph{Mobility control} ($|\Lambda|\ll1$): $m=1/(\tau A)$ and $V^\star=\kT A$. Writing $m=(\ts/\tau)\cdot1/(\ts A)$ shows that $m$ can rise and then fall with temperature within a single mechanism: $1/(\ts A)$ grows as the barrier softens, while $\ts/\tau\to0$ on the athermal plateau. $V^\star$, in contrast, increases monotonically.
+\item \emph{Resistance control} ($\Lambda\gg1$): $m\simeq B/\tau$ and $V^\star\simeq\kT/B$. In the recovery limit Eq.~\eqref{eq:natural}, $B=\tau_a/3$ and $m\to1/3$.
+\item \emph{Negative rate sensitivity}:
+\begin{equation}
+m<0\iff 1+\Lambda<0\iff\Lambda<-1 ,
+\end{equation}
+which requires $B<0$, i.e.\ aging, with $|B|>1/A$. Under strain-rate control this branch is stable; under stress control it is not, and the rate jumps.
+\item A maximum in $V^\star(T)$ marks the passage from $A$- to $B$-control; a maximum in $m(T)$ alone does not.
+\end{itemize}
+
+% =====================================================================
+\section{How the equations are solved}
+% =====================================================================
+\subsection{Imposed rate (tension)}
+The rate $\gd$ is known, and the steps are carried out in order:
+\begin{enumerate}
+\item compute $c_3=KD/\gd$ and solve Eq.~\eqref{eq:ss} for $x$ by bisection, giving $\rho$, $\rho_f$ and $\rho_m$;
+\item compute $t_a$ from Eq.~\eqref{eq:ta} and $C/C_0$ from Eq.~\eqref{eq:aging};
+\item evaluate $\tau_a$ from Eq.~\eqref{eq:taua};
+\item solve $\gd=\rho_mbv_g(\ts)$ for $\ts$ by bisection in $\ln\ts$;
+\item solve Eq.~\eqref{eq:taup} for $\tau_p$ by bisection;
+\item add: $\tau=\tau_a+\ts+\tau_p$.
+\end{enumerate}
+Each step uses only results of earlier steps. There are three scalar root finds, each on a monotonic function, and no iteration between them.
+
+\subsection{Imposed stress (creep, mechanism maps)}
+The rate is now the unknown, and since the state depends on it the problem is implicit in $\gd$:
+\begin{equation}
+F(\gd)\equiv\tau_a\big(\bm s(\gd)\big)+\ts\big(\gd,\bm s(\gd)\big)+\tau_p(\gd)-\tau_{\rm applied}=0 .
+\end{equation}
+For each temperature, $\tau(\gd)$ is tabulated on $10^{-14}\le\gd\le10^6$~s$^{-1}$ using the rate-controlled solution and inverted at $\tau_{\rm applied}$. If $\tau(\gd)$ is non-monotonic (DSA), the lowest-rate branch that reaches the stress is taken. The diffusional rate, Eq.~\eqref{eq:diff}, is then added.
+
+\subsection{Transients}
+The steady state is appropriate for flow stresses at saturation and for minimum creep rates. For transients (rate jumps, relaxation, primary creep), Eq.~\eqref{eq:km_time} and the aging time are integrated in time as internal variables. Each step is then explicit: from the current $\tau$ and state the flow rule gives $\gd$, and the state is updated. No $1/\gd$ appears in the time form.
+
+% =====================================================================
+\section{Complete equations for each material}
+% =====================================================================
+Conventions: $\gd=\dot\epsilon/M_s$ and $\tau=M_s\sigma$, with $M_s=0.333$ for W and Eurofer-97 and $0.45$ for Zr. Energies are in eV, $k_B=8.617\times10^{-5}$~eV/K.
+
+\subsection{Level I: tungsten}
+\begin{matbox}[W: kink-pair glide against a Kocks--Mecking forest]
+Here $\beta=f_m=1$, so $\rho_f=\rho_m=\rho$, and $\Lambda_b=0$. There is no aging and there are no particles. Given $(\gd,T)$:
+\begin{align}
+&k_1\sqrt\rho-k_{20}e^{q_2/\kT}\rho-\frac{K\,D_0e^{-Q_D/\kT}}{\gd}\,\rho^2=0,\\[4pt]
+&\gd=\rho\,b\,\frac{\ts b}{B_d}\exp\left\{-\frac{\Delta H_0}{2\kT}\max\!\left[\left(1-\left(\frac{\ts}{\tau_P}\right)^{p}\right)^{q}-\frac{T}{T_0},0\right]\right\},\\[4pt]
+&\boxed{\tau=\alpha\mu b\sqrt\rho+\ts}
+\end{align}
+With the self-diffusivity of W ($Q_D=6.0$~eV) the climb term is negligible below $\sim$1000~K, so $\sqrt\rho=k_1/k_2(T)$ and
+\begin{equation}
+\tau\simeq\alpha\mu b\,\frac{k_1}{k_{20}}\,e^{-q_2/\kT}+\ts(\gd,T).
+\end{equation}
+\emph{Check:} at 300~K, $k_2=500\,e^{-0.011/0.02585}=327$, $k_1/k_2=1.68\times10^7$~m$^{-1}$, and $\tau_a=0.28\times161~\text{GPa}\times0.2722~\text{nm}\times1.68\times10^7~\text{m}^{-1}=207$~MPa.
+
+\medskip
+\begin{tabular}{@{}ll@{}}
+\toprule
+$b$, $\mu$, $T_m$, $\Omega$ & 0.2722 nm, 161 GPa (constant), 3695 K, $1.585\times10^{-29}$ m$^3$\\
+$\Delta H_0$, $\tau_P$, $p$, $q$ & 2.4 eV, 0.8 GPa, 0.83, 1.69\\
+$T_0$, $B_d$ & $0.9T_m=3326$ K, $1.10\times10^{-3}$ Pa\,s\\
+$\alpha$, $k_1$, $k_{20}$, $q_2$ & 0.28, $5.5\times10^9$ m$^{-1}$, 500, $-0.011$ eV\\
+$K$, $D_0$, $Q_D$ & $10^9$, $4\times10^{-5}$ m$^2$/s, 6.0 eV (not calibrated)\\
+creep: $d$, $D_{b0}$, $Q_b$ & 100 $\mu$m, $4\times10^{-5}$ m$^2$/s, 3.9 eV\\
+\bottomrule
+\end{tabular}
+\end{matbox}
+
+\clearpage
+\subsection{Level II: zirconium (prismatic slip)}
+\begin{matbox}[Zr: level I + oxygen aging + climb recovery]
+Here $\beta=f_m=1$ and $\Lambda_b=0$. With $\rho_m=\rho_f=\rho$ the waiting time simplifies to $t_a=b\sqrt\rho/\gd$. Given $(\gd,T)$:
+\begin{align}
+&k_1\sqrt\rho-k_{20}e^{q_2/\kT}\rho-\frac{K\,D_0e^{-Q_D/\kT}}{\gd}\,\rho^2=0,\\[4pt]
+&\frac{C}{C_0}=1+C_{\rm O}\left\{1-\exp\left[-\left(\frac{b\sqrt\rho}{\gd}\,\nu_{\rm O}\,e^{-Q_{\rm O}/\kT}\right)^{\alpha_{\rm O}}\right]\right\},\\[4pt]
+&\gd=\rho\,b\,\frac{\ts b}{B_d(\Delta g)}\exp\left\{-\frac{\Delta H_0}{2\kT}\,\Delta g\right\},\qquad
+\Delta g=\max\!\left[\left(1-\left(\frac{\ts}{\tau_P}\right)^{p}\right)^{q}-\frac{T}{T_0},0\right],\\[4pt]
+&\boxed{\tau=\alpha\mu b\sqrt{\frac{C}{C_0}}\,\sqrt\rho+\ts}
+\end{align}
+with $B_d(\Delta g)$ from Eq.~\eqref{eq:drag_switch}. For creep, $\gd_{\rm tot}=\gd_{\rm disl}+42\,\Omega\tau\,(D_v+\pi\delta D_b/d)/(\kT d^2)$.
+
+\emph{What each addition does.} Aging raises the plateau above $\sim$600~K and makes it decrease with rate ($\Lambda<-1$ near 650~K). Climb recovery makes $\rho$, and hence $\tau_a$, fall steeply above $\sim$750~K at low rates, approaching $\gd\propto D\tau^3$.
+
+\medskip
+\begin{tabular}{@{}ll@{}}
+\toprule
+$b$, $\mu$, $T_m$, $\Omega$ & 0.3233 nm, 33 GPa (constant), 2128 K, $2.33\times10^{-29}$ m$^3$\\
+$\Delta H_0$, $\tau_P$, $p$, $q$ & 3.75 eV, 300 MPa, 0.86, 1.69\\
+$T_0$, $B_k$, $B_0$ & $0.7T_m=1490$ K, $7.65\times10^{-4}$ Pa\,s, $5.0\times10^{-5}$ Pa\,s\\
+$\alpha$, $k_1$, $k_{20}$, $q_2$ & 0.36, $5.5\times10^9$ m$^{-1}$, 500, $-0.005$ eV\\
+O aging: $C_{\rm O}$, $Q_{\rm O}$, $\nu_{\rm O}$, $\alpha_{\rm O}$ & 0.30, 1.80 eV, $10^{13}$ s$^{-1}$, 2/3\\
+recovery: $K$, $D_0$, $Q_D$ & $10^9$, $10^{-4}$ m$^2$/s, 3.2 eV\\
+creep: $d$, $D_v$, $D_{b0}$, $Q_b$ & 20 $\mu$m, $=D$, $10^{-4}$ m$^2$/s, 2.1 eV\\
+\bottomrule
+\end{tabular}
+\end{matbox}
+
+\clearpage
+\subsection{Level III: Eurofer-97}
+\begin{matbox}[Eurofer-97: level II + boundaries + particles + diffusional flow]
+Here $\beta=0.1$ and $f_m=1$, so $\rho_f=\rho_m=0.1\rho$, and $t_a=b\sqrt{\rho_f}/\gd$. The shear modulus is temperature dependent,
+$\mu(T)=\mu_0\max\{1-0.35\,(T-300)/(T_m-300),\ 0.45\}$ with $\mu_0=80$~GPa.
+Given $(\gd,T)$:
+\begin{align}
+&k_1\left(\sqrt\rho+\Lambda_b\right)-k_{20}e^{q_2/\kT}\rho-\frac{K\,D_0e^{-Q_D/\kT}}{\gd}\,\rho^2=0,\\[4pt]
+&\frac{C}{C_0}=1+C_{\rm CN}\left\{1-\exp\left[-\left(\frac{b\sqrt{\rho_f}}{\gd}\,\nu_{\rm CN}\,e^{-Q_{\rm CN}/\kT}\right)^{\alpha_{\rm CN}}\right]\right\},\\[4pt]
+&\tau_a=\alpha\mu(T)\,b\,\sqrt{\frac{C}{C_0}}\left(\sqrt{\rho_f}+\Lambda_b\right),\\[4pt]
+&\gd=\rho_f\,b\,\frac{\ts b}{B_d}\exp\left\{-\frac{\Delta H_0}{2\kT}\max\!\left[\left(1-\left(\frac{\ts}{\tau_P}\right)^{p}\right)^{q}-\frac{T}{T_0},0\right]\right\},\\[4pt]
+&\gd=\rho_f\,b\,\lambda_p\left[\nu_0\exp\left\{-\frac{F(T)}{\kT}\left(1-\frac{\tau_p}{\hat\tau(T)}\right)\right\}
++\frac{2\pi D_c}{b\,h\ln(R/r_c)}\,\frac{e^{\tau_p\Omega/\kT}-1}{\max(1-\tau_p/\hat\tau(T),10^{-3})}\right],\\[4pt]
+&\boxed{\tau=\alpha\mu(T)b\sqrt{\frac{C}{C_0}}\left(\sqrt{\rho_f}+\Lambda_b\right)+\ts+\tau_p}\\[4pt]
+&\text{creep:}\quad \dot\epsilon=M_s\left[\gd_{\rm disl}(M_s\sigma)+42\,\frac{\Omega\,M_s\sigma}{\kT d^2}\left(D+\frac{2\pi b}{d}D_b\right)\right],
+\end{align}
+with $\hat\tau(T)=\hat\tau_0\,\mu(T)/\mu_0$, $F(T)=F_0\,\mu(T)/\mu_0$ (detachment with $p=q=1$), $D_c=D_{c0}e^{-Q_c/\kT}$, and $Q_c=Q_D$.
+
+The boundary term collects laths, blocks, prior-austenite grains and particles:
+\begin{equation}
+\Lambda_b=\frac{1}{0.5\,\mu\mathrm{m}}+\frac{0.3}{3.1\,\mu\mathrm{m}}+\frac{0.1}{21\,\mu\mathrm{m}}+\frac{0.3}{1.5\,\mu\mathrm{m}}+\frac{0.2}{0.456\,\mu\mathrm{m}}=2.74\times10^6~\mathrm{m}^{-1}.
+\end{equation}
+
+\emph{What each addition does.} $\Lambda_b$ raises storage and the plateau. C/N aging gives the flattened $m$ near 400--700~K. The particles carry more than half of the flow stress; their detachment makes $\tau_p$ fall with temperature, and their local climb produces threshold creep with $n\approx16$--18 at 450--500~$^\circ$C and 5--8 at 650~$^\circ$C. Diffusional flow sets the floor of the creep rate at low stress.
+
+\medskip
+\begin{tabular}{@{}ll@{}}
+\toprule
+$b$, $\mu_0$, $T_m$, $\Omega$ & 0.2737 nm, 80 GPa, 1811 K, $1.18\times10^{-29}$ m$^3$\\
+$\Delta H_0$, $\tau_P$, $p$, $q$ & 1.493 eV, 680.6 MPa, 0.65, 1.7\\
+$T_0$, $B_d$ & $0.9T_m=1630$ K, $8.75\times10^{-4}$ Pa\,s\\
+$\alpha$, $k_1$, $k_{20}$, $q_2$, $\beta$ & 0.2959, $7.8\times10^{10}$ m$^{-1}$, 6750, $-0.007$ eV, 0.1\\
+$\Lambda_b$ & $2.74\times10^6$ m$^{-1}$\\
+C/N aging: $C$, $Q$, $\nu$, $\alpha$ & 1.206, 0.965 eV, $10^{13}$ s$^{-1}$, 1/3\\
+recovery: $K$, $D_0$, $Q_D$ & $6.59\times10^6$, $2\times10^{-4}$ m$^2$/s, 2.917 eV\\
+particles: $\hat\tau_0$, $F_0$, $\nu_0$, $\lambda_p$ & 188.4 MPa, 3.658 eV, $10^{11}$ s$^{-1}$, 200 nm\\
+particle climb: $D_{c0}$, $Q_c$, $h$, $\ln(R/r_c)$ & $5.365\times10^{-3}$ m$^2$/s$^\dagger$, 2.917 eV, 1 nm, 5\\
+diffusional: $d$, $D_{b0}$, $Q_b$, $\delta$ & 21 $\mu$m, $2\times10^{-4}$ m$^2$/s, 1.8 eV, $2b$\\
+\bottomrule
+\end{tabular}
+
+{\small $^\dagger$Lumped with $h$ and $\ln(R/r_c)$; not a bare diffusivity.}
+\end{matbox}
+
+% =====================================================================
+\section{Summary of the hierarchy}
+% =====================================================================
+\begin{center}
+\begin{tabular}{p{4.2cm}ccc}
+\toprule
+Ingredient & W (I) & Zr (II) & Eurofer-97 (III)\\
+\midrule
+Orowan + kink-pair travel, Eq.~\eqref{eq:vg} & \checkmark & \checkmark & \checkmark\\
+Taylor stress, forest storage, dynamic recovery & \checkmark & \checkmark & \checkmark\\
+Climb (static) recovery, $KD\rho^2/\gd$ & (inactive) & \checkmark & \checkmark\\
+Solute aging, $\sqrt{C/C_0}$ & -- & O & C, N\\
+Boundary storage, $\Lambda_b$ & -- & -- & \checkmark\\
+Particle group: detachment $\parallel$ climb & -- & -- & \checkmark\\
+Diffusional flow (creep) & prediction & prediction & \checkmark\\
+\midrule
+Sign of $B$ & 0 & $-$ then $+$ & $-$ then $+$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Each level keeps the equations of the level below unchanged and adds terms at fixed places: new resistances enter $\tau$, new rate-dependent state enters $\bm s(\gd,T)$, and new independent carriers enter $\gd_{\rm tot}$.
+
+% =====================================================================
+\begin{thebibliography}{99}
+\bibitem{Orowan1940} E. Orowan, Proc. Phys. Soc. \textbf{52}, 8 (1940).
+\bibitem{KocksArgonAshby} U. F. Kocks, A. S. Argon, and M. F. Ashby, Prog. Mater. Sci. \textbf{19}, 1 (1975).
+\bibitem{Seeger} A. Seeger, in \emph{Handbuch der Physik}, Vol.~VII/2, edited by S. Fl\"ugge (Springer, Berlin, 1958).
+\bibitem{HirthLothe} J. P. Hirth and J. Lothe, \emph{Theory of Dislocations}, 2nd ed. (Wiley, New York, 1982).
+\bibitem{DornRajnak1964} J. E. Dorn and S. Rajnak, Trans. Metall. Soc. AIME \textbf{230}, 1052 (1964).
+\bibitem{Po2016} G. Po, Y. Cui, D. Rivera, D. Cereceda, T. D. Swinburne, J. Marian, and N. Ghoniem, Acta Mater. \textbf{119}, 123 (2016).
+\bibitem{RoslerArzt} J. R\"osler and E. Arzt, Acta Metall. Mater. \textbf{38}, 671 (1990).
+\bibitem{BrownHam} L. M. Brown and R. K. Ham, in \emph{Strengthening Methods in Crystals}, edited by A. Kelly and R. B. Nicholson (Elsevier, Amsterdam, 1971), p.~9.
+\bibitem{ArztAshby1982} E. Arzt and M. F. Ashby, Scr. Metall. \textbf{16}, 1285 (1982).
+\bibitem{Taylor1934} G. I. Taylor, Proc. R. Soc. London A \textbf{145}, 362 (1934).
+\bibitem{KocksMecking2003} U. F. Kocks and H. Mecking, Prog. Mater. Sci. \textbf{48}, 171 (2003).
+\bibitem{Kocks1976} U. F. Kocks, J. Eng. Mater. Technol. \textbf{98}, 76 (1976).
+\bibitem{MeckingKocks} H. Mecking and U. F. Kocks, Acta Metall. \textbf{29}, 1865 (1981).
+\bibitem{EstrinMecking1984} Y. Estrin and H. Mecking, Acta Metall. \textbf{32}, 57 (1984).
+\bibitem{Estrin1996} Y. Estrin, in \emph{Unified Constitutive Laws of Plastic Deformation}, edited by A. S. Krausz and K. Krausz (Academic Press, San Diego, 1996), p.~69.
+\bibitem{KMR1949} D. Kuhlmann, G. Masing, and J. Raffelsieper, Z. Metallkd. \textbf{40}, 241 (1949).
+\bibitem{SandstromLagneborg1975} R. Sandstr\"om and R. Lagneborg, Acta Metall. \textbf{23}, 387 (1975).
+\bibitem{Sandstrom1977} R. Sandstr\"om, Acta Metall. \textbf{25}, 897 (1977).
+\bibitem{Nes1995} E. Nes, Acta Metall. Mater. \textbf{43}, 2189 (1995).
+\bibitem{SandstromHallgren2012} R. Sandstr\"om and J. Hallgren, J. Nucl. Mater. \textbf{422}, 51 (2012).
+\bibitem{Poirier1985} J.-P. Poirier, \emph{Creep of Crystals} (Cambridge University Press, Cambridge, 1985).
+\bibitem{Blum2002} W. Blum, P. Eisenlohr, and F. Breutinger, Metall. Mater. Trans. A \textbf{33}, 291 (2002).
+\bibitem{McCormick1988} P. G. McCormick, Acta Metall. \textbf{36}, 3061 (1988).
+\bibitem{KubinEstrin1990} L. P. Kubin and Y. Estrin, Acta Metall. Mater. \textbf{38}, 697 (1990).
+\bibitem{CottrellBilby} A. H. Cottrell and B. A. Bilby, Proc. Phys. Soc. A \textbf{62}, 49 (1949).
+\bibitem{Louat1981} N. Louat, Scr. Metall. \textbf{15}, 1167 (1981).
+\bibitem{Cheng2001} J. Cheng, S. Nemat-Nasser, and W. Guo, Mech. Mater. \textbf{33}, 603 (2001).
+\bibitem{Nabarro1948} F. R. N. Nabarro, in \emph{Report of a Conference on the Strength of Solids} (Physical Society, London, 1948), p.~75.
+\bibitem{Herring1950} C. Herring, J. Appl. Phys. \textbf{21}, 437 (1950).
+\bibitem{Coble1963} R. L. Coble, J. Appl. Phys. \textbf{34}, 1679 (1963).
+\bibitem{FrostAshby} H. J. Frost and M. F. Ashby, \emph{Deformation-Mechanism Maps} (Pergamon, Oxford, 1982).
+\end{thebibliography}
+\end{document}
